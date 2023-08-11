@@ -32,13 +32,16 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) // "cascade" : OrderItem 엔티티의 persist를 같이 해줌
     private List<OrderItem> orderItems = new ArrayList<>();
+
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL) // 일대일 인 경우  주로 조회하는 테이블에 외래키와 주도권을 가짐
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
     private LocalDateTime orderDate; // 주문시간
+
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // 주문 상태 - ORDER, CANCEL
+
 
     //==연관관계 메서드==// 위치는 컨트롤 하는 엔티티에 적어주기
     public void setMember(Member member){

@@ -40,7 +40,15 @@ public class MemberService {
     public List<Member> findMembers(){
         return memberRepository.findAll();
     }
+
     public Member findOne(Long memberId){
         return memberRepository.findOne(memberId);
+    }
+
+
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);
+        member.setName(name); // 변경 감지로 Update
     }
 }
