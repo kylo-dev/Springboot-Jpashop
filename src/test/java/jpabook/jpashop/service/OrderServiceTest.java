@@ -8,6 +8,7 @@ import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import jpabook.jpashop.repository.OrderRepository;
+import jpabook.jpashop.repository.jpa.OrderJpaRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -27,6 +30,31 @@ public class OrderServiceTest {
     @Autowired EntityManager em;
     @Autowired OrderService orderService;
     @Autowired OrderRepository orderRepository;
+    @Autowired OrderJpaRepository orderJpaRepository;
+
+    @Test
+    public void findMemberAndDelivery() throws Exception {
+        List<Order> result = orderJpaRepository.findAllWithMemberDelivery();
+        for (Order order : result) {
+            System.out.println("order = " + order);
+        }
+    }
+
+    @Test
+    public void findAllWithItem() throws Exception {
+        List<Order> result = orderJpaRepository.findAllWithItem();
+        for (Order order : result) {
+            System.out.println("order = " + order);
+        }
+    }
+
+    @Test
+    public void originfindAllWithItem() throws Exception {
+        List<Order> result = orderRepository.findAllWithItem();
+        for (Order order : result) {
+            System.out.println("order = " + order);
+        }
+    }
 
     @Test
     public void Item_Order() throws Exception {
