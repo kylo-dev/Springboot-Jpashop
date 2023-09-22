@@ -19,12 +19,14 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    // 회원가입 URL로 이동
     @GetMapping("/members/new")
     public String createForm(Model model){
         model.addAttribute("memberForm", new MemberForm());
         return "members/createMemberForm";
     }
 
+    // 회원가입 FORM 전송
     @PostMapping("/members/new") // post 요청이 오면 매핑해줌
     public String create(@Valid MemberForm form, BindingResult result){   // Error가 있을 시 result에 담아주고 실행시켜줌
 
@@ -41,10 +43,11 @@ public class MemberController {
         return "redirect:/"; // redirect "/"으로 이동
     }
 
+    // 회원 목록 조회
     @GetMapping("/members")
     public String list(Model model){
         List<Member> members = memberService.findMembers();
         model.addAttribute("members", members);
-        return "members/memberList.html";
+        return "members/memberList";
     }
 }

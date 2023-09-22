@@ -5,10 +5,8 @@ import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.item.Item;
-import jpabook.jpashop.repository.ItemRepository;
-import jpabook.jpashop.repository.MemberRepository;
-import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
+import jpabook.jpashop.repository.jpa.ItemJpaRepository;
 import jpabook.jpashop.repository.jpa.MemberJpaRepository;
 import jpabook.jpashop.repository.jpa.OrderJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +20,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
 
-    private final OrderRepository orderRepository;
+//    private final OrderRepository orderRepository;
 //    private final MemberRepository memberRepository;
+//    private final ItemRepository itemRepository;
     private final OrderJpaRepository orderJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
-    private final ItemRepository itemRepository;
+    private final ItemJpaRepository itemJpaRepository;
 
     /**
      * 주문
@@ -38,7 +37,8 @@ public class OrderService {
         Member member = memberJpaRepository.findById(memberId)
                 .orElseThrow(IllegalArgumentException::new);
 
-        Item item = itemRepository.findOne(itemId);
+        Item item = itemJpaRepository.findById(itemId)
+                .orElseThrow(IllegalArgumentException::new);
 
         // 배송 정보 생성
         Delivery delivery = new Delivery();
@@ -72,6 +72,6 @@ public class OrderService {
      * 검색
      */
     public List<Order> findOrders(OrderSearch orderSearch){
-        return orderRepository.findAllByString(orderSearch);
+        return orderJpaRepository.search(orderSearch);
     }
 }

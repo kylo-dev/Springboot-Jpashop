@@ -1,6 +1,7 @@
 package jpabook.jpashop.repository.jpa;
 
 import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.repository.querydsl.OrderJpaRepositoryCustom;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.awt.print.Pageable;
 import java.util.List;
 
-public interface OrderJpaRepository extends JpaRepository<Order, Long> {
+public interface OrderJpaRepository extends JpaRepository<Order, Long>, OrderJpaRepositoryCustom {
 
     @EntityGraph(attributePaths = {"member", "delivery"})
     @Query("select o from Order o")

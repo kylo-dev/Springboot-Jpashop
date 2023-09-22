@@ -19,6 +19,7 @@ public class ItemController {
 
     private final ItemService itemService;
 
+    // 상품 등록 URL로 이동
     @GetMapping("/items/new")
     public String createForm(Model model){
         model.addAttribute("form", new BookForm());
@@ -38,6 +39,7 @@ public class ItemController {
         return "redirect:/";
     }
 
+    // 모든 상품 조회
     @GetMapping("/items")
     public String list(Model model){
         List<Item> items = itemService.findItems();
@@ -45,10 +47,12 @@ public class ItemController {
         return "items/itemList";
     }
 
+    // 특정 상품 수정 URL로 이동
     @GetMapping("items/{itemId}/edit")
     public String updateItemForm(@PathVariable("itemId") Long itemId, Model model){
         Book item = (Book) itemService.findOne(itemId);
 
+        // BookForm에 기존의 상품 데이터 값 전달하기
         BookForm form = new BookForm();
         form.setId(item.getId());
         form.setName(item.getName());
