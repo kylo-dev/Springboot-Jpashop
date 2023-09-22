@@ -1,6 +1,7 @@
 package jpabook.jpashop.api;
 
 import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.dto.member.MemberDto;
 import jpabook.jpashop.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,12 +40,11 @@ public class MemberApiController {
         private T data;
     }
 
-    @Data
-    @AllArgsConstructor
-    static class MemberDto {
-        private String name;
-    }
-
+//    @Data
+//    @AllArgsConstructor
+//    static class MemberDto {
+//        private String name;
+//    }
 
     @PostMapping("/api/v1/members")
     public CreateMemberResponse saveMemberV1(@RequestBody @Valid Member member){
@@ -88,7 +88,6 @@ public class MemberApiController {
         @NotEmpty
         private String name;
     }
-
 
     @Data
     static class CreateMemberResponse {

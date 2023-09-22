@@ -11,10 +11,10 @@ import javax.persistence.EntityManager;
 @SpringBootApplication
 public class JpashopApplication {
 
-//	@Bean
-//	Hibernate5Module hibernate5Module() {
-//		return new Hibernate5Module();
-//	}
+	@Bean
+	Hibernate5Module hibernate5Module() {
+		return new Hibernate5Module();
+	}
 	@Bean
 	JPAQueryFactory jpaQueryFactory(EntityManager em) {
 		return new JPAQueryFactory(em);

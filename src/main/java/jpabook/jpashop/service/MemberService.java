@@ -40,7 +40,8 @@ public class MemberService {
     }
 
     public Member findOne(Long memberId){
-        return memberJpaRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
+        return memberJpaRepository.findById(memberId)
+                .orElseThrow(IllegalArgumentException::new);
     }
 
 
