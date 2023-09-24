@@ -135,10 +135,9 @@ Restful API 개발을 하면서 꼭 알아야 할 사항들을 배웠습니다.
 
 ### Querydsl 적용
 
-// draw.io로 수정하기
 |사용자 정의 레포지토리|
 |---|
-|<img src="https://github.com/kylo-dev/Springboot-Jpashop/assets/103489352/f9fd0f5d-7019-461d-92b2-f758f5593751" width="450px" height="300px" alt="회원 엔티티"></img>|
+|<img src="https://github.com/kylo-dev/Springboot-Jpashop/assets/103489352/80e99eb8-e32b-4390-bc01-ce194e82e179" width="480px" height="350px" alt="회원 엔티티"></img>|
 
 JPQL로 동적 쿼리를 구현할 수 있지만 코드의 가독성과 유지보수 측면에선 좋지 않아 이 단점을 보완한 Querydsl을 통해서도 동적 쿼리를 구현해보았습니다.
 
