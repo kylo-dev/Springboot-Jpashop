@@ -14,7 +14,7 @@ JPASHOP 프로젝트를 통해 springboot를 처음 공부하면서 spring의 �
 
 
 * [도메인 분석 및 설계](#도메인-분석-및-설계)
-* [Spring Data Jpa 분석](#spring-data-jpa-분석)
+* [Spring Data Jpa 분석](#spring-data-jpa-적용)
 * [Restful API 개발](#restful-api-개발)
 * [Querydsl 적용](#querydsl-적용)
 * [배운점](#배운점)
@@ -61,9 +61,54 @@ public class Order {
     // 나머지 생략...
 }
 ```
+[Entity Code](https://github.com/kylo-dev/Springboot-Jpashop/tree/main/src/main/java/jpabook/jpashop/domain)
 
+### Spring Data Jpa 적용
 
-### Spring Data Jpa 분석
+순수 JPA를 통해 CRUD를 구현하기 위해선 Repository 빈을 등록하는 클래스를 만들고 이 안에서 CRUD를 구현한 함수들을 작성해줘야 합니다.
+
+예시로 save(), findOne(), findAll(), findByName(), delete() .. 등 하나부터 전부 구현해야 합니다. 
+
+하지만, Spring Data JPA가 제공하는 공통 인터페이스(JpaRepository<T, ID>)를 상속받아 사용하면 주요 CRUD 메소드를 구현하지 않고 사용할 수 있습니다.
+
+공통 인터페이스를 상속한 레포지토리는 컴포넌트 스캔을 Spring Data JPA가 자동으로 처리해주기 때문에 @Repository 애노테이션을 생략할 수 있습니다.
+
+T 부분에는 엔티티 타입을 작성하고 ID에는 엔티티를 식별하는 속성의 타입을 작성합니다.
+
+주요 메서드 (S: 엔티티와 그 자식 타입 | T: 엔티티 | ID: 엔티티의 식별자 타입)
+* save(S)
+* delete(T)
+* findById(ID)
+* findAll(...)
+
+순수 JPA -> Spring Data JPA 코드로 수정
+```java
+public interface OrderJpaRepository extends JpaRepository<Order, Long>, OrderJpaRepositoryCustom {
+
+    @EntityGraph(attributePaths = {"member", "delivery"})
+    @Query("select o from Order o")
+    List<Order> findAllWithMemberDelivery();
+
+    @EntityGraph(attributePaths = {"member", "delivery", "orderItems", "orderItems.item"})
+    @Query("select distinct o from Order o")
+    List<Order> findAllWithItem();
+
+    @EntityGraph(attributePaths = {"member", "delivery"})
+    @Query("select o from Order o")
+    List<Order> findAllWithMemberDelivery(Pageable pageable);
+}
+```
+
+이 프로젝트에서는 Spring Data JPA로 쿼리 메소드를 다음과 같은 방식으로 생성하였습니다.
+
+1. 메소드 이름으로 쿼리 생성
+2. @Query로 레포지토리 메소드에 쿼리 정의
+
+@Query는 실행할 메소드에 정적 쿼리를 직접 작성할 수 있고 애플리케이션 실행 시점에 문법 오류를 발견할 수 있었습니다.
+
+지연 로딩으로 연결된 엔티티들의 정보를 Fetch Join으로 조회하기 위해서 @EntityGraph와 @Query 애노테이션을 사용하였습니다.
+
+[Repository Code](https://github.com/kylo-dev/Springboot-Jpashop/tree/springdatajpa/src/main/java/jpabook/jpashop/repository)
 
 ### Restful API 개발
 
@@ -105,6 +150,7 @@ public class OrderJpaRepositoryImpl implements OrderJpaRepositoryCustom {
 }
 ```
 
+[JPQL 동적 쿼리 보기 - findAllByString](https://github.com/kylo-dev/Springboot-Jpashop/blob/main/src/main/java/jpabook/jpashop/repository/OrderRepository.java)
 
 
 ### Stacks
