@@ -1,5 +1,7 @@
 # Springboot-Jpashop
-[인프런/김영한] Springboot, Spring Data Jpa, Querydsl 적용 및 Restful API 개발
+[인프런/김영한] 
+
+**Springboot, Spring Data Jpa, Querydsl 적용 및 Restful API 개발**
 
 강의 복습 2번 / 개인 PDF 복습 4번
 
@@ -19,7 +21,7 @@ JPASHOP 프로젝트를 통해 springboot를 처음 공부하면서 spring의 �
 * [Querydsl 적용](#querydsl-적용)
 * [배운점](#배운점)
 
-
+---
 
 ### 도메인 분석 및 설계
 
@@ -62,6 +64,8 @@ public class Order {
 }
 ```
 [Entity Code](https://github.com/kylo-dev/Springboot-Jpashop/tree/main/src/main/java/jpabook/jpashop/domain)
+
+---
 
 ### Spring Data Jpa 적용
 
@@ -110,7 +114,22 @@ public interface OrderJpaRepository extends JpaRepository<Order, Long>, OrderJpa
 
 [Repository Code](https://github.com/kylo-dev/Springboot-Jpashop/tree/springdatajpa/src/main/java/jpabook/jpashop/repository)
 
+---
+
 ### Restful API 개발
+
+[API 명세서 with Postman](https://documenter.getpostman.com/view/28292619/2s9YJW5R13)
+
+Restful API 개발을 하면서 꼭 알아야 할 사항들을 배웠습니다.
+1. Request or Response 값은 엔티티로 받는 것이 아닌 별도의 DTO로 받아 처리한다.
+    * 엔티티에 프레젠테이션 계층 분리
+    * DTO를 통해 다양한 API 요청을 해결하면서 엔티티에 영향을 주지 않는다.
+2. 모든 엔티티의 관계는 즉시 로딩이 아닌 지연로딩으로 설정한다.
+   * 지연 로딩 조회시 최적화를 위해 컬렉션이 아닌 경우는 Fetch Join을 통해 거의 해결이 된다.
+   * 페이징이 필요한 경우 컬렉션은 Fetch Join 하지 않고 batch_fetch_size or @BatchSize를 통해 최적화한다.
+3. 엔티티를 DTO로 변환해 조회하는 방식으로 해결이 되지 않는 경우 -> DTO 직접 조회 방식으로 최적화한다.
+
+---
 
 ### Querydsl 적용
 
@@ -152,10 +171,15 @@ public class OrderJpaRepositoryImpl implements OrderJpaRepositoryCustom {
 
 [JPQL 동적 쿼리 보기 - findAllByString](https://github.com/kylo-dev/Springboot-Jpashop/blob/main/src/main/java/jpabook/jpashop/repository/OrderRepository.java)
 
+---
 
 ### Stacks
 
+---
+
 ### 화면구성
+
+---
 
 ### 배운점
 
