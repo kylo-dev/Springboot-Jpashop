@@ -19,6 +19,8 @@ JPASHOP 프로젝트를 통해 springboot를 처음 공부하면서 spring의 �
 * [Spring Data Jpa 분석](#spring-data-jpa-적용)
 * [Restful API 개발](#restful-api-개발)
 * [Querydsl 적용](#querydsl-적용)
+* [Stacks](#stacks)
+* [화면구성](#화면구성)
 * [배운점](#배운점)
 
 ---
@@ -174,10 +176,31 @@ public class OrderJpaRepositoryImpl implements OrderJpaRepositoryCustom {
 ---
 
 ### Stacks
+#### Environment
+<div>
+    <img src="https://img.shields.io/badge/Intellij-000000?style=for-the-badge&logo=intellijidea&logoColor=white">
+    <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white">
+    <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=github&logoColor=white">
+    <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white">
+</div>
+
+#### Development
+<div>
+    <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
+    <img src="https://img.shields.io/badge/Springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+    <img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white">
+    <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
+</div>
 
 ---
 
 ### 화면구성
+
+|메인 페이지|회원등록 페이지|상품등록 페이지|
+|---|---|---|
+|<img src="https://github.com/kylo-dev/Springboot-Jpashop/assets/103489352/dcb82fb1-a7b2-4579-9492-95cb9404368b" width="450px" height="400px" alt="메인 페이지"></img>|<img src="https://github.com/kylo-dev/Springboot-Jpashop/assets/103489352/40b43759-0a57-4ea4-b3a6-fe540e60f0d6" width="450px" height="400px" alt="회원등록 페이지"></img>|<img src="https://github.com/kylo-dev/Springboot-Jpashop/assets/103489352/f4282110-7e24-4be2-968d-79648a73c53f" width="450px" height="400px" alt="상품등록 페이지"></img>|
+|상품주문 페이지|주문조회 페이지|상품조회 페이지|
+|<img src="https://github.com/kylo-dev/Springboot-Jpashop/assets/103489352/fb33251b-c827-4690-99ba-d59606231249" width="400px" height="330px" alt="상품주문 페이지"></img>|<img src="https://github.com/kylo-dev/Springboot-Jpashop/assets/103489352/5ef13814-b4c3-48c5-b481-19f221493b72" width="400px" height="330px" alt="주문조회 페이지"></img>|<img src="https://github.com/kylo-dev/Springboot-Jpashop/assets/103489352/90bbe1dc-82c4-4acf-a34a-5ec1bfbe2ad2" width="450px" height="400px" alt="상품조회 페이지"></img>|
 
 ---
 
