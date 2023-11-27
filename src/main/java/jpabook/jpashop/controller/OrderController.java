@@ -22,6 +22,7 @@ public class OrderController {
     private final MemberService memberService;
     private final ItemService itemService;
 
+    // 상품 주문 URL로 이동
     @GetMapping("/order")
     public String createForm(Model model){
 
@@ -43,6 +44,7 @@ public class OrderController {
         return "redirect:/orders"; // 상품 주문 목록으로 리다이렉트
     }
 
+    // 모든 주문내역 조회
     @GetMapping("/orders")
     public String orderList(@ModelAttribute("orderSearch")OrderSearch orderSearch, Model model){
         List<Order> orders = orderService.findOrders(orderSearch);
@@ -51,9 +53,10 @@ public class OrderController {
         return "order/orderList";
     }
 
+    // 주문 상품 취소
     @PostMapping("/orders/{orderId}/cancel")
     public String cancelOrder(@PathVariable("orderId") Long orderId){
         orderService.cancelOrder(orderId);
-        return "redircet:/orders";
+        return "redirect:/orders";
     }
 }

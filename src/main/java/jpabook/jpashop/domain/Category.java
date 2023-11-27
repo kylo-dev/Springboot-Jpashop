@@ -17,6 +17,7 @@ public class Category {
     @Id @GeneratedValue
     @Column(name = "category_id")
     private Long id;
+
     private String name;
 
     @ManyToMany // 가급적 사용 X
@@ -28,6 +29,7 @@ public class Category {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
+
     @OneToMany(mappedBy = "parent") //
     private List<Category> child = new ArrayList<>();
 

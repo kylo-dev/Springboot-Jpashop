@@ -5,10 +5,10 @@ import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.item.Item;
-import jpabook.jpashop.repository.ItemRepository;
-import jpabook.jpashop.repository.MemberRepository;
-import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
+import jpabook.jpashop.repository.jpa.ItemJpaRepository;
+import jpabook.jpashop.repository.jpa.MemberJpaRepository;
+import jpabook.jpashop.repository.jpa.OrderJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +20,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
 
-    private final OrderRepository orderRepository;
-    private final MemberRepository memberRepository;
-    private final ItemRepository itemRepository;
+//    private final OrderRepository orderRepository;
+//    private final MemberRepository memberRepository;
+//    private final ItemRepository itemRepository;
+    private final OrderJpaRepository orderJpaRepository;
+    private final MemberJpaRepository memberJpaRepository;
+    private final ItemJpaRepository itemJpaRepository;
 
     /**
      * 주문
@@ -31,8 +34,11 @@ public class OrderService {
     public Long order(Long memberId, Long itemId, int count){
 
         // 엔티티 조회
-        Member member = memberRepository.findOne(memberId);
-        Item item = itemRepository.findOne(itemId);
+        Member member = memberJpaRepository.findById(memberId)
+                .orElseThrow(IllegalArgumentException::new);
+
+        Item item = itemJpaRepository.findById(itemId)
+                .orElseThrow(IllegalArgumentException::new);
 
         // 배송 정보 생성
         Delivery delivery = new Delivery();
@@ -45,7 +51,7 @@ public class OrderService {
         Order order = Order.createOrder(member, delivery, orderItem);
 
         // 주문 저장
-        orderRepository.save(order);
+        orderJpaRepository.save(order);
 
         return order.getId();
     }
@@ -56,7 +62,8 @@ public class OrderService {
     @Transactional
     public void cancelOrder(Long orderId){
         // 주문 엔티티 조회
-        Order order = orderRepository.findOne(orderId);
+        Order order = orderJpaRepository.findById(orderId)
+                .orElseThrow(IllegalArgumentException::new);
         // 주문 취소
         order.cancel();
     }
@@ -65,6 +72,6 @@ public class OrderService {
      * 검색
      */
     public List<Order> findOrders(OrderSearch orderSearch){
-        return orderRepository.findAllByString(orderSearch);
+        return orderJpaRepository.search(orderSearch);
     }
 }
